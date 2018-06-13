@@ -8,8 +8,8 @@
 
 /*
 Packet := header + body
-header := length
-length := [0-9][0-9]
+header := length + '|';
+length := [0-9]+
 body   := text
 
 Example:
@@ -18,7 +18,7 @@ Example:
 12Hello World!
 */
 
-#define PACKET_HEADER_SIZE 2
+#define MAX_PACKET_SIZE 1024
 
 char* encode_packet(const char *text);
 
@@ -28,13 +28,16 @@ int sock_connect(const char *ip, int port);
 
 
 char* encode_packet(const char *text){
-	int len = strlen(text);
-	if(len > 99){
+	int body_len = strlen(text);
+	if(body_len > MAX_PACKET_SIZE - 15){
 		return NULL;
 	}
-	int buflen = PACKET_HEADER_SIZE + len + 1;
-	char *buf = (char *)malloc(buflen);
-	snprintf(buf, buflen, "%02d%s\n", len, text);
+	char header[20];
+	int header_len = snprintf(header, sizeof(header), "%d|", body_len);
+	int packet_len = header_len + body_len;
+
+	char *buf = (char *)malloc(packet_len + 1);
+	snprintf(buf, packet_len + 1, "%s%s", header, text);
 	return buf;
 }
 

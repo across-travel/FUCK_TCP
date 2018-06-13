@@ -6,14 +6,14 @@
 
 ```
 Packet := header + body
-header := length
-length := [0-9][0-9]
+header := length + '|'
+length := [0-9]+
 body   := text
 
 Example:
 
-01A
-12Hello World!
+1|A
+12|Hello World!
 ```
 
 该报文格式用两个 digit 充当报文的头部，这两个 digit 组成的数字表示后面跟着的报体的长度。

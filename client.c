@@ -64,28 +64,38 @@ char* parse(struct Buffer *buf){
 	if(buf->size == 0){
 		return NULL;
 	}
-	if(buf->size < PACKET_HEADER_SIZE){
-		printf("[Partial Packet] header not ready, buffer %d\n", buf->size);
-		return NULL;
+	int head_len;
+	int body_len;
+
+	{
+		char *body = (char *)memchr(buf->data, '|', buf->size);
+		if(body == NULL){
+			printf("[Partial Packet] header not ready, buffer %d\n", buf->size);
+			return NULL;
+		}
+		body ++;
+		head_len = body - buf->data;
 	}
-	
-	char length[3];
-	length[0] = buf->data[0];
-	length[1] = buf->data[1];
-	length[2] = '\0';
-	int len = atoi(length);
-	if(buf->size < PACKET_HEADER_SIZE + len){
+
+	{
+		char header[20];
+		memcpy(header, buf->data, head_len - 1); // no '|'
+		header[head_len - 1] = '\0';
+		body_len = atoi(header);
+	}
+
+	if(buf->size < head_len + body_len){
 		printf("[Partial Packet] body not ready, buffer %d\n", buf->size);
 		return NULL;
 	}
 	
-	char *body = malloc(len + 1);
-	if(len > 0){
-		memcpy(body, buf->data + PACKET_HEADER_SIZE, len);
+	char *body = malloc(body_len + 1);
+	if(body_len > 0){
+		memcpy(body, buf->data + head_len, body_len);
 	}
-	body[len] = '\0';
+	body[body_len] = '\0';
 	
-	buffer_del(buf, PACKET_HEADER_SIZE + len);
+	buffer_del(buf, head_len + body_len);
 	
 	return body;
 }

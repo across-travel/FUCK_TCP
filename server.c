@@ -8,11 +8,17 @@
 
 void send_partial_packet(int sock);
 void send_merged_packet(int sock);
+void send_packets(int sock);
 
 int main(int argc, char **argv){
 	if(argc <  2){
 		printf("Usage: %s port\n", argv[0]);
 		exit(0);
+	}
+	int test = 0;
+	if(argc > 2){
+		test = 1;
+		printf("enable test mode\n");
 	}
 
 	const char *ip = "0.0.0.0";
@@ -32,11 +38,38 @@ int main(int argc, char **argv){
 			exit(0);
 		}
 	
-		send_partial_packet(sock);
-		send_merged_packet(sock);
+		if(test){
+			send_partial_packet(sock);
+			send_merged_packet(sock);
+		}else{
+			send_packets(sock);
+		}
 		close(sock);
 		printf("data sent\n");
 	}
+}
+
+void send_packets(int sock){
+	char *p;
+	int n;
+
+	p = encode_packet("test");
+	n = strlen(p);
+	write(sock, p, n);
+	free(p);
+	usleep(10 * 1000);
+
+	p = encode_packet("Hello");
+	n = strlen(p);
+	write(sock, p, n);
+	free(p);
+	usleep(10 * 1000);
+
+	p = encode_packet("World!");
+	n = strlen(p);
+	write(sock, p, n);
+	free(p);
+	usleep(10 * 1000);
 }
 
 void send_partial_packet(int sock){

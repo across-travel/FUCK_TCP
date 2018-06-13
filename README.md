@@ -108,6 +108,6 @@ body = parse(tmp);
 
 这样的代码当然是错误的，这么简单代码怎么可能是对的？如果对了，TCP 还是 TCP 吗？
 
-如果你认为本文有用，请关注这个 GitHub 项目：<a href="https://github.com/ideawu/FUCK_TCP">https://github.com/ideawu/FUCK_TCP</a> 让更多人一次炮打 TCP！
+如果你认为本文有用，请关注这个 GitHub 项目：<a href="https://github.com/ideawu/FUCK_TCP">https://github.com/ideawu/FUCK_TCP</a> 让更多人一起炮打 TCP！
 
 原文：http://www.ideawu.net/blog/archives/1027.html

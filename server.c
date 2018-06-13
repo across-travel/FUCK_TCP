@@ -18,7 +18,7 @@ int main(int argc, char **argv){
 	int test = 0;
 	if(argc > 2){
 		test = 1;
-		printf("enable test mode\n");
+		printf("enable debug mode\n");
 	}
 
 	const char *ip = "0.0.0.0";

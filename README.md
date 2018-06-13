@@ -29,7 +29,7 @@ Example:
 make
 ./server 7001
 # or
-./server 7001 test
+./server 7001 debug
 ````
 
 启动了一个监听 7001 端口的 TCP 服务器，你可以用自己写的客户端连接上去，接收消息。如果收到的消息是：

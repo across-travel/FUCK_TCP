@@ -44,7 +44,7 @@ void send_partial_packet(int sock){
 	int n = strlen(p);
 	for(int i=0; i<n; i++){
 		write(sock, p+i, 1);
-		usleep(100);
+		usleep(20 * 1000);
 	}
 	free(p);
 }

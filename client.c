@@ -2,7 +2,7 @@
  * The TCP socket client that receive simulate Partial Packet
  * and Merged Packets from TCP connection.
  * @author: ideawu
- * @link: http://www.ideawu.com/
+ * @link: http://www.ideawu.net/
  *****************************************************/
 #include "inc.h"
 #include "buffer.h"

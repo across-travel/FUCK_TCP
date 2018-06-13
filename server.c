@@ -2,7 +2,7 @@
  * The TCP socket server to simulate Partial Packet
  * and Merged Packets transfer over TCP connection.
  * @author: ideawu
- * @link: http://www.ideawu.com/
+ * @link: http://www.ideawu.net/
  *****************************************************/
 #include "inc.h"
 
